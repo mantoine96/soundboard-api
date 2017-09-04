@@ -1,4 +1,4 @@
-package soundboardApi
+package main
 
 import (
 	"fmt"
@@ -8,18 +8,7 @@ import (
 )
 
 // Soundboard structure contains multiple sounds
-type Soundboard struct {
-	Title  string
-	Sounds []Sound
-}
 
-// Sound for Soundboard
-type Sound struct {
-	Title     string
-	Character string
-	Episode   string
-	File      string
-}
 
 func main() {
 	fmt.Println("Coucou")
@@ -42,6 +31,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	fmt.Println("URL: ", result.URL)
 }

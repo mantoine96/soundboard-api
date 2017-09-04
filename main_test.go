@@ -1,4 +1,4 @@
-package soundboardApi
+package main
 
 import (
 	"testing"
