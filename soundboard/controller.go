@@ -115,3 +115,20 @@ func (c *Controller) DeleteSound(w http.ResponseWriter, r *http.Request) {
 
 	return
 }
+
+// Status GET /
+func (c *Controller) GetStatus(w http.ResponseWriter, r *http.Request) {
+
+	status := map[string]string{"status": "ok"}
+	data, err := json.Marshal(status)
+	if err != nil {
+		log.Fatalln("Error status", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(http.StatusOK)
+	w.Write(data)
+	return
+}

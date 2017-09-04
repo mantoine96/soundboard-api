@@ -45,6 +45,12 @@ var routes = Routes{
 		"/",
 		controller.DeleteSound,
 	},
+	Route{
+		"Status",
+		"GET",
+		"/status",
+		controller.GetStatus,
+	},
 }
 
 //NewRouter configures a new router to the API

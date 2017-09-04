@@ -6,13 +6,13 @@ import (
 	"gopkg.in/h2non/baloo.v1"
 )
 
-var test = baloo.New("http://localhost:8080")
+var test = baloo.New("http://localhost:9000")
 
 func TestHomePage(t *testing.T) {
-	test.Get("/").
+	test.Get("/status").
 		Expect(t).
 		Status(200).
 		Type("json").
-		JSON(map[string]string{"message": "coucou"}).
+		JSON(map[string]string{"status": "ok"}).
 		Done()
 }
