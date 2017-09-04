@@ -1,35 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"gopkg.in/mgo.v2"
-	"gopkg.in/mgo.v2/bson"
+	"net/http"
+	"soundboard-api/soundboard"
+
+	"github.com/gorilla/handlers"
 )
 
 // Soundboard structure contains multiple sounds
 
-
 func main() {
-	fmt.Println("Coucou")
-	session, err := mgo.Dial("localhost")
-	if err != nil {
-		panic(err)
-	}
-	defer session.Close()
-
-	c := session.DB("moncul").C("sounds")
-	err = c.Insert(&Sound{"Test", "https://google.com/Prout"},
-		&Sound{"Test2", "https://google.com/Bite"})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	result := Sound{}
-
-	err = c.Find(bson.M{"name": "Test2"}).One(&result)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("URL: ", result.URL)
+	router := soundboard.NewRouter() // Create new routes
+	// these two lines are important in order to allow access from the front-end side to the methods
+	allowedOrigins := handlers.AllowedOrigins([]string{"*"})
+	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
+	// launch server with CORS validations
+	log.Fatal(http.ListenAndServe(":9000",
+		handlers.CORS(allowedOrigins, allowedMethods)(router)))
 }
