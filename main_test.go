@@ -1,18 +1,40 @@
 package main
 
 import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"soundboard-api/soundboard"
 	"testing"
 
-	"gopkg.in/h2non/baloo.v1"
+	"github.com/stretchr/testify/assert"
 )
 
-var test = baloo.New("http://localhost:9000")
+func TestStatus(t *testing.T) {
+	router := soundboard.NewRouter()
+	request, _ := http.NewRequest("GET", "/status", nil)
+	response := httptest.NewRecorder()
+	//expectedResponse, _ := json.Marshal(map[string]string{"status": "ok"})
+	router.ServeHTTP(response, request)
+	assert.Equal(t, 200, response.Code, "HTTP200 is expected")
+	var responseJSON map[string]string
+	err := json.NewDecoder(response.Body).Decode(&responseJSON)
+	if err != nil {
+		t.Errorf("Error when decoding JSON")
+	}
+	assert.Equal(t, map[string]string{"status": "ok"}, responseJSON, "Status should be OK")
+}
+func TestGetSounds(t *testing.T) {
 
-func TestHomePage(t *testing.T) {
-	test.Get("/status").
-		Expect(t).
-		Status(200).
-		Type("json").
-		JSON(map[string]string{"status": "ok"}).
-		Done()
+	t.Errorf("Not implemented")
+}
+func TestAddSound(t *testing.T) {
+	t.Errorf("Not implemented")
+}
+
+func TestUpdateSound(t *testing.T) {
+	t.Errorf("Not implemented")
+}
+func TestDeleteSound(t *testing.T) {
+	t.Errorf("Not implemented")
 }
