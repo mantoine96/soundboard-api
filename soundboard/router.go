@@ -2,7 +2,8 @@ package soundboard
 
 import (
 	"net/http"
-	"soundboard-api/logger"
+
+	"github.com/thehunt33r/soundboard-api/logger"
 
 	"github.com/gorilla/mux"
 )

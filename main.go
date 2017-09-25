@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
-	"soundboard-api/soundboard"
 
 	"github.com/gorilla/handlers"
+	"github.com/thehunt33r/soundboard-api/soundboard"
 )
 
 // Soundboard structure contains multiple sounds
